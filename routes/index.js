@@ -15,12 +15,17 @@ router.get("/shop",isLoggedIn,async function(req,res){
     res.render("shop",{products,success});
 });
 
-router.get("/cart/:id",isLoggedIn,async function(req,res){
-    let user = await userModel.findOne({id:req.user._id}).populate("cart");
-    console.log(user);
-    const bill = (Number(user.cart[0].price)+20)-Number(user.cart[0].discount)
+router.get("/cart/",isLoggedIn,async function(req,res){
+    try{
 
-    res.render("cart",{user,bill});
+        let user = await userModel.findOne({id:req.user._id}).populate("cart");
+        const bill = (Number(user.cart[0].price)+20)-Number(user.cart[0].discount)
+    
+        res.render("cart",{user,bill});
+    }
+    catch(err){
+        console.log(err.message);
+    }
 });
 
 router.get("/addtocart/:id",isLoggedIn,async function(req,res){

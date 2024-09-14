@@ -1,20 +1,22 @@
 <%- include('./partials/header') %>
-   <%user.cart.forEach(function(item){%>
+
+<% if (user.cart && user.cart.length > 0) { %>
+   <% user.cart.forEach(function(item) { %>
     <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
         <div class="w-[30%] rounded-md overflow-hidden">
-            <div class="w-full flex justify-center items-center h-80 bg-[<%= item.bgcolor%>]"></div>
-            <img class="h-[18rem]" src="data:image/jpeg:base64,<%=item.image.data.toString('base64')%>" alt="">
-            <div class="w-full flex justify-between px-5 py-4 bg-[<%= item.panelcolor%>]">
+            <div class="w-full flex justify-center items-center h-80 bg-[<%= item.bgcolor || '#fff' %>]"></div>
+            <img class="h-[18rem]" src="data:image/jpeg;base64,<%= item.image && item.image.data ? item.image.data.toString('base64') : '' %>" alt=""> 
+            <div class="w-full flex justify-between px-5 py-4 bg-[<%= item.panelcolor || '#fff' %>]">
                 <h3 class="text-2xl">Clinge Bag</h3>
                 <div class="flex items-center gap-2">
                     <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
                     <div class="px-2 py-1 rounded-md bg-white text-black">01</div>
-                    <i class="w-7 h-7 bg-white flex rounded-full items-cent<er justify-center ri-subtract-line"></i>
+                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
                 </div>
             </div>
-            <div class="flex text-white justify-between px-5 py-3 bg-[<%=item.textcolor%>]">
+            <div class="flex text-white justify-between px-5 py-3 bg-[<%= item.textcolor || '#000' %>]">
                 <h4 class="text-lg">Net Total</h4>
-                <h2 class="text-lg"><%=bill%></h2>
+                <h2 class="text-lg"><%= bill %></h2>
             </div>
         </div>
         <div class="w-[70%]">
@@ -22,11 +24,11 @@
             <div class="px-10 mt-5">
                 <div class="flex mt-2">
                     <h4 class="w-1/3">Total MRP</h4>
-                    <h4><%=item.[0].price%></h4>
+                    <h4><%= item.price || 'N/A' %></h4>
                 </div>
                 <div class="flex mt-2">
                     <h4 class="w-1/3">Discount on MRP</h4>
-                    <h4><%= Number(item.discount)%></h4>
+                    <h4><%= Number(item.discount) || '0' %></h4>
                 </div>
                 <div class="flex mt-2">
                     <h4 class="w-1/3">Platform Fee</h4>
@@ -40,10 +42,14 @@
             <div class="w-full h-[1px] bg-black mt-10"></div>
             <div class="flex mt-5">
                 <h3 class="w-1/3 text-xl">Total Amount</h3>
-                <h3 class="font-semibold text-xl text-green-600"><%=bill%></h3>
+                <h3 class="font-semibold text-xl text-green-600"><%= bill || 'N/A' %></h3>
             </div>
-            <form action=""></form>
+            <form action="<%= /* specify form action here */ %>"></form>
         </div>
     </div>
-   <%})
-    <%- include('./partials/footer') %>
+   <% }); %>
+<% } else { %>
+   <p>Your cart is empty.</p>
+<% } %>
+
+<%- include('./partials/footer') %>
