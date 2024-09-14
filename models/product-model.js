@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const { buffer } = require("stream/consumers");
 
 
 const productSchema = mongoose.Schema({
-    image:String,
+    image:Buffer,
     name:String,
     price:Number,
     discount:{

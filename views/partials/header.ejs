@@ -10,6 +10,15 @@
 </head>
 
 <body class="font-['helvetica_now_display']">
-    <nav class="w-full fixed top-0 left-0 px-5 py-3">
+    <nav class="w-full flex justify-between px-5 py-3">
         <h3 class="text-xl">Scatch</h3>
+        <% var logged = typeof logged!=="undefined"? logged : true %>
+        <%if(logged){%>
+            <div class="flex gap-5">
+                <a href="/shop">shop</a>
+                <a href="/cart/:<%=user._id%>">cart</a>
+                <a href="/account">My account</a>
+                <a href="/users/Logout" class="text-red-600">Logout</a>
+            </div>
+        <%}%>
     </nav>
